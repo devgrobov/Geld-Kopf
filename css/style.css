@@ -1,0 +1,807 @@
+/* =========================================================
+   Geld & Kopf — Snow White UI (clean + microinteractions)
+   ========================================================= */
+
+/* ---- Design tokens ---- */
+:root {
+    --bg: #fcfdff;
+    /* сніжно-білий фон */
+    --surface: #ffffff;
+    --line: #e8eef6;
+
+    --text: #0d1526;
+    --muted: #5b6473;
+
+    --accent: #1757ff;
+    /* синій */
+    --accent-600: #0d46d6;
+    /* hover/active */
+    --accent-ghost: #edf3ff;
+    /* soft chips */
+
+    --radius: 14px;
+    --round: 999px;
+    --maxw: 1120px;
+
+    --shadow-sm: 0 4px 14px rgba(13, 21, 38, .06);
+}
+
+/* ---- Base / Reset ---- */
+* {
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+html,
+body {
+    height: 100%;
+}
+
+body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--text);
+    font: 16px/1.65 system-ui, -apple-system, Segoe UI, Inter, Roboto, Arial, sans-serif;
+    text-rendering: optimizeLegibility;
+}
+
+img {
+    display: block;
+    max-width: 100%;
+    height: auto;
+}
+
+a {
+    color: var(--accent);
+    text-decoration: none;
+}
+
+a:hover {
+    color: var(--accent-600);
+    text-decoration: underline;
+}
+
+:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 2px;
+}
+
+.container {
+    width: min(100% - 48px, var(--maxw));
+    margin-inline: auto;
+}
+
+/* ---- Typography ---- */
+h1,
+h2,
+h3 {
+    margin: 0 0 .6rem;
+    line-height: 1.18;
+}
+
+h1 {
+    font-size: clamp(36px, 5vw, 54px);
+    letter-spacing: -.02em;
+}
+
+h2 {
+    font-size: clamp(24px, 3.2vw, 30px);
+    letter-spacing: -.01em;
+}
+
+h3 {
+    font-size: clamp(18px, 2.3vw, 22px);
+}
+
+.lead {
+    color: var(--muted);
+    max-width: 70ch;
+}
+
+/* ---- Header ---- */
+.site-header {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    background: var(--surface);
+    border-bottom: 1px solid var(--line);
+    backdrop-filter: saturate(140%) blur(4px);
+}
+
+.header-inner {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+    padding: 14px 0;
+}
+
+.logo {
+    font-weight: 700;
+    letter-spacing: .2px;
+    color: var(--text);
+}
+
+.burger {
+    display: none;
+    border: 1px solid var(--line);
+    background: var(--surface);
+    color: var(--text);
+    padding: 8px 12px;
+    border-radius: 12px;
+    min-height: 40px;
+}
+
+.nav {
+    margin-left: auto;
+    display: flex;
+    gap: 6px;
+    align-items: center;
+}
+
+.nav a {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 8px 12px;
+    min-height: 40px;
+    border-radius: 12px;
+    color: var(--text);
+}
+
+.nav a:hover {
+    background: var(--accent-ghost);
+    text-decoration: none;
+}
+
+.nav .cta {
+    background: var(--accent);
+    color: #fff;
+    font-weight: 600;
+    border-radius: var(--round);
+    padding: 9px 14px;
+    box-shadow: var(--shadow-sm);
+}
+
+.nav .cta:hover {
+    background: var(--accent-600);
+}
+
+/* ---- Buttons (з ripple) ---- */
+.btn {
+    position: relative;
+    overflow: hidden;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 12px 18px;
+    min-height: 44px;
+    border-radius: var(--round);
+    background: var(--accent);
+    color: #fff;
+    border: 1px solid var(--accent);
+    font-weight: 600;
+    text-decoration: none;
+    box-shadow: var(--shadow-sm);
+    transition: transform .08s ease, background .15s ease;
+}
+
+.btn:hover {
+    background: var(--accent-600);
+    text-decoration: none;
+}
+
+.btn:active {
+    transform: translateY(1px);
+}
+
+.btn::after {
+    /* ripple (центрований, без JS теж працює) */
+    content: "";
+    position: absolute;
+    inset: auto;
+    left: 50%;
+    top: 50%;
+    width: 0;
+    height: 0;
+    border-radius: 50%;
+    pointer-events: none;
+    background: radial-gradient(closest-side, rgba(255, 255, 255, .35), transparent);
+    transform: translate(-50%, -50%);
+    transition: width .35s ease, height .35s ease, opacity .4s ease;
+    opacity: 0;
+}
+
+.btn:active::after {
+    width: 240px;
+    height: 240px;
+    opacity: 1;
+}
+
+/* ---- Sections ---- */
+section {
+    padding: 56px 0;
+}
+
+section+section {
+    border-top: 1px solid var(--line);
+}
+
+/* HERO */
+.hero {
+    padding: 88px 0 56px;
+    background:
+        radial-gradient(900px 340px at 100% -20%, #f4f7ff 0%, rgba(244, 247, 255, 0) 60%),
+        var(--bg);
+}
+
+.hero .lead {
+    margin: 8px 0 12px;
+}
+
+/* VALUE / AUDIENCE / PROBLEMS */
+.bullet-list {
+    margin: 0;
+    padding-left: 1.25rem;
+}
+
+.bullet-list li {
+    margin: .44rem 0;
+}
+
+.bullet-list li::marker {
+    color: var(--accent);
+}
+
+.problem-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    counter-reset: p;
+}
+
+.problem-list li {
+    counter-increment: p;
+    position: relative;
+    padding-left: 2rem;
+    margin: .55rem 0;
+}
+
+.problem-list li::before {
+    content: counter(p) ".";
+    position: absolute;
+    left: 0;
+    top: 0;
+    color: var(--accent);
+    font-weight: 800;
+}
+
+/* CARDS (Themen entdecken) */
+.cards-grid {
+    display: grid;
+    gap: 18px;
+    grid-template-columns: repeat(3, 1fr);
+}
+
+.card {
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    padding: 16px;
+    background: var(--surface);
+    transition: border-color .15s ease, transform .15s ease, background .2s ease;
+}
+
+.card:hover {
+    border-color: #d7e4ff;
+    transform: translateY(-2px);
+    background: #f8fbff;
+}
+
+.card h3 {
+    margin: 0 0 .35rem;
+}
+
+.card p {
+    margin: .2rem 0 0;
+    color: var(--muted);
+}
+
+/* TRUST */
+.trust {
+    background: linear-gradient(#fff, #fff), radial-gradient(800px 280px at 0% -15%, #f6f9ff 0%, transparent 60%);
+}
+
+.trust p {
+    margin: 0;
+    color: var(--muted);
+    max-width: 74ch;
+}
+
+/* BACK TO TOP — по-ЦЕНТРУ, без подвійних ліній */
+.back-to-top {
+    border-top: 1px solid var(--line);
+    padding: 12px 0;
+    /* тільки одна лінія зверху */
+}
+
+.back-to-top .container {
+    display: flex;
+    justify-content: center;
+}
+
+.back-to-top a {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 9px 14px;
+    border-radius: var(--round);
+    background: var(--accent-ghost);
+    color: var(--accent);
+    text-decoration: none;
+    min-width: 220px;
+    justify-content: center;
+}
+
+.back-to-top a:hover {
+    background: #e7efff;
+}
+
+/* FOOTER — 3 рівні колонки */
+.footer {
+    background: var(--surface);
+    border-top: 1px solid var(--line);
+}
+
+.footer__grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 28px;
+    padding: 24px 0;
+}
+
+.footer__title {
+    position: relative;
+    margin: 0 0 10px;
+    font-weight: 800;
+    padding-bottom: 6px;
+}
+
+.footer__title::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 56px;
+    height: 2px;
+    background: var(--accent);
+    border-radius: 2px;
+}
+
+.footer__list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    gap: 8px;
+}
+
+.footer__list a {
+    display: inline-flex;
+    align-items: center;
+    min-height: 30px;
+    color: var(--text);
+}
+
+.footer__list a:hover {
+    text-decoration: underline;
+}
+
+.footer__bar {
+    border-top: 1px solid var(--line);
+    display: flex;
+    text-align: center;
+    justify-content: center;
+    gap: 40px;
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
+
+.footer__disclaimer {
+    margin: 0;
+    color: var(--muted);
+    max-width: 72ch;
+    font-size: 14.5px;
+}
+
+.footer__copy {
+    margin: 0;
+    color: #6b7280;
+}
+
+/* прибираємо старі непотрібні елементи, якщо лишилися */
+.footer__brand,
+.footer__quick,
+.footer__headlink,
+.footer__contact,
+.footer__social {
+    display: none !important;
+}
+
+/* === Button hover fix (override global a:hover) === */
+a.btn,
+a.btn:link,
+a.btn:visited {
+    color: #fff;
+    /* білий текст у стані за замовчуванням */
+    text-decoration: none;
+}
+
+a.btn:hover,
+.btn:hover {
+    color: #fff !important;
+    /* не даємо глобальному a:hover перебити */
+    text-decoration: none;
+    background: var(--accent-600);
+    border-color: var(--accent-600);
+}
+
+/* На випадок, якщо є <button class="btn"> */
+button.btn,
+button.btn:hover {
+    color: #fff;
+}
+
+/* Якщо є іконка всередині */
+.btn svg {
+    fill: currentColor;
+}
+
+.close-nav {
+    align-self: flex-end;
+    font-size: 24px;
+    line-height: 1;
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: #333;
+    padding: 8px;
+    margin-bottom: 12px;
+}
+
+.close-nav:hover {
+    color: #000;
+}
+/* === Quiz Styling (Tools & Selbsttest) === */
+#mm-form {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 20px;
+}
+
+#mm-form fieldset {
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  padding: 16px;
+  background: #fff;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+#mm-form legend {
+  font-weight: 600;
+  margin-bottom: 6px;
+}
+
+#mm-form label {
+  font-size: 0.95rem;
+  line-height: 1.4;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+#mm-form label span {
+  display: flex;
+  gap: 8px;
+  margin-left: 4px;
+}
+
+#mm-form input[type="radio"] {
+  accent-color: #2563eb; /* синя позначка */
+  width: 18px;
+  height: 18px;
+}
+/* ============================
+   QUIZ (Money Mindset)
+   ============================ */
+.quiz-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 24px;
+  margin-top: 20px;
+}
+
+.quiz-grid .card {
+  background: #fff;
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  padding: 18px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+}
+
+.quiz-grid legend {
+  font-weight: 700;
+  font-size: 1.1rem;
+  margin-bottom: 12px;
+  color: #111827;
+}
+
+.quiz-grid .q {
+  margin-bottom: 16px;
+}
+
+.quiz-grid .q-text {
+  font-size: 0.95rem;
+  margin-bottom: 8px;
+  color: #374151;
+}
+
+.quiz-grid .scale {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.quiz-grid .opt {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.9rem;
+  cursor: pointer;
+  user-select: none;
+}
+
+.quiz-grid input[type="radio"] {
+  accent-color: #2563eb; /* синій як на кнопках */
+  width: 18px;
+  height: 18px;
+  cursor: pointer;
+}
+
+.quiz-grid .opt span {
+  font-size: 0.9rem;
+  color: #111;
+}
+
+/* Кнопки під квізом */
+.quiz-actions {
+  display: flex;
+  justify-content: center;
+  gap: 16px;
+  margin-top: 20px;
+}
+
+.quiz-actions .btn {
+  padding: 10px 18px;
+  font-weight: 600;
+  border-radius: 8px;
+  background: #2563eb;
+  color: #fff;
+  transition: background 0.2s ease;
+}
+
+.quiz-actions .btn:hover {
+  background: #1e40af;
+}
+
+
+/* =========================================================
+   Mobile-only (≤600px) — GELD & KOPF
+   Підключайте у pages/*.html як ../media.css
+   ========================================================= */
+@media (max-width: 600px) {
+
+    /* Базові дрібниці */
+    body {
+        font-size: 17px;
+        line-height: 1.65;
+    }
+
+    .container {
+        width: min(100% - 32px, 720px);
+        margin-inline: auto;
+    }
+
+    /* ---------- Header / Burger ---------- */
+    .burger {
+        display: inline-flex;
+    }
+
+    /* Мобільне меню як легка картка */
+    .nav {
+        position: fixed;
+        inset: 64px 16px auto 16px;
+        /* відступ від шапки */
+        display: none;
+        flex-direction: column;
+        gap: 8px;
+        background: #fff;
+        border: 1px solid #e8eef6;
+        border-radius: 14px;
+        padding: 12px;
+        box-shadow: 0 10px 30px rgba(13, 21, 38, .08);
+    }
+
+    .nav a {
+        width: 100%;
+        justify-content: flex-start;
+        min-height: 44px;
+        border-radius: 10px;
+    }
+
+    .nav a:hover {
+        background: #edf3ff;
+        text-decoration: none;
+    }
+
+    /* Відкриття меню */
+    .nav.open {
+        display: flex;
+    }
+
+    .burger[aria-expanded="true"]+.nav {
+        display: flex;
+    }
+
+    /* Блокування скролу тіла коли меню відкрите (JS додає .no-scroll на <html>) */
+    html.no-scroll,
+    html.no-scroll body {
+        overflow: hidden;
+    }
+
+    /* ---------- Hero / Секції ---------- */
+    section {
+        padding: 40px 0;
+    }
+
+    .hero {
+        padding: 60px 0 36px;
+    }
+
+    .lead {
+        margin-bottom: 14px;
+    }
+
+    /* ---------- Cards ---------- */
+    .cards-grid {
+        grid-template-columns: 1fr;
+        gap: 14px;
+    }
+
+    .card {
+        padding: 14px;
+    }
+
+    /* ---------- Back to top (по центру) ---------- */
+    .back-to-top {
+        border-top: 1px solid #e8eef6;
+        padding: 10px 0;
+    }
+
+    .back-to-top .container {
+        display: flex;
+        justify-content: center;
+    }
+
+    .back-to-top a {
+        width: 100%;
+        justify-content: center;
+        min-height: 44px;
+    }
+
+    /* ---------- Footer (1 колонка) ---------- */
+    .footer__grid {
+        grid-template-columns: 1fr;
+        gap: 16px;
+        padding: 20px 0;
+        width: min(100% - 32px, 720px);
+        margin-inline: auto;
+    }
+
+    .footer__bar {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 8px;
+        padding: 10px 0 14px;
+        width: min(100% - 32px, 720px);
+        margin-inline: auto;
+    }
+
+    .footer__disclaimer {
+        font-size: 14px;
+    }
+
+    @media (max-width:600px) {
+        .header-inner {
+            gap: 10px;
+        }
+
+        /* бургер завжди справа */
+        .burger {
+            order: 1;
+            /* після логотипу */
+            margin-left: auto;
+            /* притискає до правого краю контейнера */
+        }
+    }
+
+    /* === CTA buttons: spacing, alignment, mobile behavior === */
+
+    /* 1) Рядок із кнопками у блоці .trust (де в тебе дві кнопки підряд) */
+    .trust .container>p:first-child {
+        display: flex;
+        /* в один рядок */
+        gap: 12px;
+        /* відстань між кнопками */
+        flex-wrap: wrap;
+        /* дозволяємо перенос */
+        align-items: center;
+        margin: 0;
+        /* прибираємо зайві відступи абзацу */
+    }
+
+    /* 2) Загальні покращення для .btn */
+    .btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        white-space: nowrap;
+        line-height: 1;
+        border-radius: 999px;
+        padding: 12px 18px;
+    }
+
+    /* Якщо кнопки опиняються одна під одною (не в .trust), додай вертикальний крок */
+    .btn+.btn {
+        margin-top: 10px;
+    }
+
+    /* 3) Мобільний вигляд: робимо їх повної ширини та одну під одною з рівним кроком */
+    @media (max-width:600px) {
+        .trust .container>p:first-child {
+            flex-direction: column;
+            align-items: stretch;
+            gap: 10px;
+        }
+
+        .trust .container>p:first-child .btn {
+            width: 100%;
+        }
+    }
+
+    /* ховаємо кнопку закриття за замовчуванням */
+    .close-nav {
+        display: none;
+    }
+
+    /* показуємо її тільки на мобільному, коли бургер-меню активне */
+    @media (max-width:600px) {
+        .close-nav {
+            display: block;
+            align-self: flex-end;
+            font-size: 24px;
+            line-height: 1;
+            background: none;
+            border: none;
+            cursor: pointer;
+            color: #333;
+            padding: 8px;
+            margin-bottom: 12px;
+        }
+    }
+
+
+}

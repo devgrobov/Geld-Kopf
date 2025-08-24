@@ -1,0 +1,127 @@
+/* =========================================================
+   Mobile-only (≤600px) — GELD & KOPF
+   Підключайте у pages/*.html як ../media.css
+   ========================================================= */
+@media (max-width: 600px) {
+
+    /* Базові дрібниці */
+    body {
+        font-size: 17px;
+        line-height: 1.65;
+    }
+
+    .container {
+        width: min(100% - 32px, 720px);
+        margin-inline: auto;
+    }
+
+    /* ---------- Header / Burger ---------- */
+    .burger {
+        display: inline-flex;
+        justify-content: flex-end;
+    }
+
+    /* Мобільне меню як легка картка */
+    .nav {
+        position: fixed;
+        inset: 64px 16px auto 16px;
+        /* відступ від шапки */
+        display: none;
+        flex-direction: column;
+        gap: 8px;
+        background: #fff;
+        border: 1px solid #e8eef6;
+        border-radius: 14px;
+        padding: 12px;
+        box-shadow: 0 10px 30px rgba(13, 21, 38, .08);
+    }
+
+    .nav a {
+        width: 100%;
+        justify-content: flex-start;
+        min-height: 44px;
+        border-radius: 10px;
+    }
+
+    .nav a:hover {
+        background: #edf3ff;
+        text-decoration: none;
+    }
+
+    /* Відкриття меню */
+    .nav.open {
+        display: flex;
+    }
+
+    .burger[aria-expanded="true"]+.nav {
+        display: flex;
+    }
+
+    /* Блокування скролу тіла коли меню відкрите (JS додає .no-scroll на <html>) */
+    html.no-scroll,
+    html.no-scroll body {
+        overflow: hidden;
+    }
+
+    /* ---------- Hero / Секції ---------- */
+    section {
+        padding: 40px 0;
+    }
+
+    .hero {
+        padding: 60px 0 36px;
+    }
+
+    .lead {
+        margin-bottom: 14px;
+    }
+
+    /* ---------- Cards ---------- */
+    .cards-grid {
+        grid-template-columns: 1fr;
+        gap: 14px;
+    }
+
+    .card {
+        padding: 14px;
+    }
+
+    /* ---------- Back to top (по центру) ---------- */
+    .back-to-top {
+        border-top: 1px solid #e8eef6;
+        padding: 10px 0;
+    }
+
+    .back-to-top .container {
+        display: flex;
+        justify-content: center;
+    }
+
+    .back-to-top a {
+        width: 100%;
+        justify-content: center;
+        min-height: 44px;
+    }
+
+    /* ---------- Footer (1 колонка) ---------- */
+    .footer__grid {
+        grid-template-columns: 1fr;
+        gap: 16px;
+        padding: 20px 0;
+        width: min(100% - 32px, 720px);
+        margin-inline: auto;
+    }
+
+    .footer__bar {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 8px;
+        padding: 10px 0 14px;
+        width: min(100% - 32px, 720px);
+        margin-inline: auto;
+    }
+
+    .footer__disclaimer {
+        font-size: 14px;
+    }
+}
