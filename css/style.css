@@ -581,7 +581,7 @@ button.btn:hover {
   display: flex;
   justify-content: center;
   gap: 16px;
-  margin-top: 20px;
+  margin-top: 22px;
 }
 
 .quiz-actions .btn {
